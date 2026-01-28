@@ -1,0 +1,3 @@
+{"input": {"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg", "categories": "cat, dog, bird, fish, other"}, "expected_output": "cat"}
+{"input": {"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/1200px-YellowLabradorLooking_new.jpg", "categories": "cat, dog, bird, fish, other"}, "expected_output": "dog"}
+{"input": {"image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eopsaltria_australis_-_Mogo_Campground.jpg/1200px-Eopsaltria_australis_-_Mogo_Campground.jpg", "categories": "cat, dog, bird, fish, other"}, "expected_output": "bird"}

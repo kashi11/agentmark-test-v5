@@ -1,0 +1,41 @@
+---
+name: image-classifier
+text_config:
+  model_name: gpt-4o
+  max_tokens: 500
+  temperature: 0.1
+test_settings:
+  dataset: classification.jsonl
+  evals:
+    - llm_classification_judge
+  props:
+    image_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNKMjK_3cVpDbePqf_1s1clkD_ZEzSTQEGRw&s"
+    categories: "cat, dog, bird, fish, other"
+input_schema:
+  type: object
+  properties:
+    image_url:
+      type: string
+      description: "URL of the image to classify"
+    categories:
+      type: string
+      description: "Comma-separated list of possible categories"
+  required:
+    - image_url
+    - categories
+---
+
+<System>
+You are an image classification system. Your task is to analyze the provided image and classify it into one of the given categories.
+
+Respond with:
+1. The selected category (must be one from the provided list)
+2. Confidence level (high, medium, low)
+3. Brief reasoning for your classification
+</System>
+
+<User>
+Classify this image into one of these categories: {props.categories}
+
+<ImageAttachment image={props.image_url} />
+</User>
