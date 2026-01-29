@@ -1,9 +1,21 @@
 ---
 name: image-classifier
-text_config:
+object_config:
   model_name: gpt-4o
-  max_tokens: 500
-  temperature: 0.1
+  schema: 
+    type: object
+    properties:
+      category:
+        description: The selected category
+        enum: ["cat", "dog", "bird", "fish", "other"]
+      confidence: 
+        description: Confidence level
+        enum: ["high", "medium", "low"]
+      reason: 
+        type: string
+        description:  Brief reasoning for your classification
+    required:
+      - names
 test_settings:
   dataset: classification.jsonl
   evals:
@@ -27,11 +39,6 @@ input_schema:
 
 <System>
 You are an image classification system. Your task is to analyze the provided image and classify it into one of the given categories.
-
-Respond with:
-1. The selected category (must be one from the provided list)
-2. Confidence level (high, medium, low)
-3. Brief reasoning for your classification
 </System>
 
 <User>
