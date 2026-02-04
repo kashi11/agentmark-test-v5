@@ -5,12 +5,14 @@ image_config:
   num_images: 1
   size: 1024x1024
   aspect_ratio: 1:1
+  max_calls: 5
 test_settings:
   dataset: animal.jsonl
   props:
-    animal: "cat"
+    animal: cat
 ---
 
+
 <ImagePrompt>
-Draw a hyper-realistic picture of a {props.animal}
+Draw a hyper-realistic picture of a {props.animal}.
 </ImagePrompt>
