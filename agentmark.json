@@ -4,7 +4,9 @@
   "mdxVersion": "1.0",
   "agentmarkPath": ".",
   "builtInModels": [
-    "gpt-4o"
+    "gpt-4o",
+    "tts-1-hd",
+    "dall-e-2"
   ],
   "evals": [
     "llm_classification_judge"
