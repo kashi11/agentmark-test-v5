@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "demo": "npx tsx index.ts",
+    "agentmark": "agentmark",
     "dev": "agentmark dev",
     "prompt": "agentmark run-prompt",
     "experiment": "agentmark run-experiment"
@@ -18,13 +19,14 @@
     "axios": "^1.7.9"
   },
   "devDependencies": {
-    "@agentmark-ai/cli": "^0.4.1",
+    "@agentmark-ai/cli": "^0.8.1",
     "@types/node": "^25.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@agentmark-ai/ai-sdk-v5-adapter": "^1.1.1",
+    "@agentmark-ai/connect": "^0.1.0",
     "@agentmark-ai/loader-api": "^0.1.0",
     "@agentmark-ai/prompt-core": "^0.1.1",
     "@agentmark-ai/sdk": "^1.0.3",
