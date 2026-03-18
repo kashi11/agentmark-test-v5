@@ -1,3 +1,0 @@
-{"input":{"image_url":"https://pethelpful.com/.image/w_3840,q_auto:good,c_limit/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg","categories":"cat, dog, bird, fish, other"},"expected_output":"cat"}
-{"input":{"image_url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnDrBPgDyqt1BxXJ0vWqC0ZPPoSPt67B_I6YXIXv8c-r00HT7kTITeTsyRtAr4z0hhOg3s5FCsAb38GcyKQosHVCi-VHwr0DbShdGt1PIr&s=10","categories":"cat, dog, bird, fish, other"},"expected_output":"dog"}
-{"input":{"image_url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkAvK9Eh7Z11ZY8Nxx0bH3JSPfKPp2dzDiUMxjzBGTb_TSpCByzmZ5gv8XKQgB7And7BUVWw0TBprqa2uiHaTB-nPjsSm_M5-10nT1vUSMuw&s=10","categories":"cat, dog, bird, fish, other"},"expected_output":"bird"}
