@@ -30,9 +30,12 @@ export default async function handler(request: {
   }
 
   if (request.type === 'dataset-run') {
+    const runName = (request.data as any).datasetRunName
+      ?? request.data.experimentId
+      ?? '';
     return adapter.runExperiment(
       request.data.ast,
-      request.data.experimentId ?? '',
+      runName,
       request.data.datasetPath,
     );
   }
