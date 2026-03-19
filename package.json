@@ -27,9 +27,9 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@agentmark-ai/ai-sdk-v5-adapter": "^1.2.0",
+    "@agentmark-ai/ai-sdk-v5-adapter": "^1.3.0",
     "@agentmark-ai/loader-api": "^0.1.0",
-    "@agentmark-ai/prompt-core": "^0.2.0",
+    "@agentmark-ai/prompt-core": "^0.3.0",
     "@agentmark-ai/sdk": "^1.0.6",
     "@ai-sdk/openai": "^2.0.100",
     "ai": "^5.0.155",
