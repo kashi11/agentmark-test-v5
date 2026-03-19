@@ -69,6 +69,7 @@ function createClient() {
     : ApiLoader.cloud({
         apiKey: process.env.AGENTMARK_API_KEY!,
         appId: process.env.AGENTMARK_APP_ID!,
+        baseUrl: process.env.AGENTMARK_BASE_URL,
       });
   const modelRegistry = createModelRegistry();
   const tools = createTools();
