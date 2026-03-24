@@ -1,12 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/agentmark-ai/agentmark/refs/heads/main/packages/cli/agentmark.schema.json",
+  "$schema": "https://agentmark.co/schemas/agentmark.json",
   "version": "2.0.0",
   "mdxVersion": "1.0",
-  "agentmarkPath": ".",
-  "handler": "handler.ts",
-  "builtInModels": [
-    "openai/dall-e-3",
-    "openai/gpt-4o",
-    "openai/tts-1-hd"
-  ]
+  "agentmarkPath": "agentmark",
+  "handler": "handler.py",
+  "evals": []
 }
