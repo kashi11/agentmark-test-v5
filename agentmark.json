@@ -2,7 +2,7 @@
   "$schema": "https://agentmark.co/schemas/agentmark.json",
   "version": "2.0.0",
   "mdxVersion": "1.0",
-  "agentmarkPath": "agentmark",
+  "agentmarkPath": ".",
   "handler": "handler.py",
   "evals": []
 }
