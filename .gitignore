@@ -1,4 +1,26 @@
-node_modules/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
 .env
+
+# AgentMark
 *.agentmark-outputs/
+.agentmark/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Build
 dist/
+build/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/

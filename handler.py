@@ -1,40 +1,42 @@
-"""AgentMark handler for Python managed deployments."""
+"""AgentMark handler for managed cloud deployments.
+
+This file is used by the AgentMark platform to execute prompts and experiments
+on deployed infrastructure. It mirrors the TypeScript handler.ts pattern.
+"""
 
 import os
-import json
+
+from agentmark_sdk import AgentMarkSDK
+from agentmark_pydantic_ai_v0 import PydanticAIWebhookHandler
+from agentmark_client import client
+
+# Initialize tracing
+sdk = AgentMarkSDK(
+    api_key=os.environ.get("AGENTMARK_API_KEY", ""),
+    app_id=os.environ.get("AGENTMARK_APP_ID", ""),
+    base_url=os.environ.get("AGENTMARK_BASE_URL"),
+)
+sdk.init_tracing(disable_batch=True)
+
+adapter = PydanticAIWebhookHandler(client)
 
 
-async def handler(request):
-    """Handle prompt-run and dataset-run requests."""
+async def handler(request: dict):
+    """Handle prompt-run and dataset-run requests from the platform."""
     req_type = request.get("type")
     data = request.get("data", {})
 
     if req_type == "prompt-run":
-        # Simple echo handler for testing
-        ast = data.get("ast", {})
-        return {
-            "type": "text",
-            "result": {
-                "text": "Hello from Python handler!",
-                "usage": {"promptTokens": 10, "completionTokens": 5, "totalTokens": 15},
-            },
-        }
+        return await adapter.run_prompt(data["ast"], {
+            "shouldStream": data.get("options", {}).get("shouldStream", False),
+            "customProps": data.get("customProps"),
+        })
 
     if req_type == "dataset-run":
-        # Return a simple async generator for streaming
-        async def stream():
-            items = [
-                {"index": 0, "input": "test1", "output": "result1", "tokens": 10},
-                {"index": 1, "input": "test2", "output": "result2", "tokens": 10},
-            ]
-            for item in items:
-                yield json.dumps(item) + "\n"
-
-        class StreamResult:
-            def __init__(self):
-                self.stream = stream()
-                self.streamHeaders = {"AgentMark-Streaming": "true"}
-
-        return StreamResult()
+        return await adapter.run_experiment(
+            data["ast"],
+            data.get("experimentId", ""),
+            data.get("datasetPath"),
+        )
 
     raise ValueError(f"Unknown request type: {req_type}")

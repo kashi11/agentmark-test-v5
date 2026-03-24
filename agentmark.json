@@ -1,8 +1,10 @@
 {
-  "$schema": "https://agentmark.co/schemas/agentmark.json",
+  "$schema": "https://raw.githubusercontent.com/agentmark-ai/agentmark/refs/heads/main/packages/cli/agentmark.schema.json",
   "version": "2.0.0",
   "mdxVersion": "1.0",
   "agentmarkPath": ".",
-  "handler": "handler.py",
-  "evals": []
+  "builtInModels": [
+    "openai/gpt-4o"
+  ],
+  "handler": "handler.py"
 }

@@ -1,0 +1,31 @@
+[project]
+name = "agentmark-test-v5"
+version = "0.1.0"
+description = "An AgentMark application using Pydantic AI"
+requires-python = ">=3.12"
+dependencies = [
+    "agentmark-sdk>=0.1.0",
+    "agentmark-pydantic-ai>=0.1.0",
+    "agentmark-prompt-core>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "pydantic-ai[openai]>=0.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "mypy>=1.0",
+]
+anthropic = ["pydantic-ai[anthropic]"]
+gemini = ["pydantic-ai[gemini]"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.mypy]
+strict = true
