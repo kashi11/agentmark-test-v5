@@ -1,29 +1,22 @@
-"""AgentMark handler for managed cloud deployments."""
+"""AgentMark handler for managed cloud deployments.
+
+This file is used by the AgentMark platform to execute prompts and experiments
+on deployed infrastructure. It mirrors the TypeScript handler.ts pattern.
+"""
 
 import os
-from agentmark.prompt_core import ApiLoader
-from agentmark_pydantic_ai_v0 import (
-    PydanticAIWebhookHandler,
-    create_pydantic_ai_client,
-    PydanticAIModelRegistry,
+
+from agentmark_sdk import AgentMarkSDK
+from agentmark_pydantic_ai_v0 import PydanticAIWebhookHandler
+from agentmark_client import client
+
+# Initialize tracing
+sdk = AgentMarkSDK(
+    api_key=os.environ.get("AGENTMARK_API_KEY", ""),
+    app_id=os.environ.get("AGENTMARK_APP_ID", ""),
+    base_url=os.environ.get("AGENTMARK_BASE_URL"),
 )
-
-# Register the model providers your prompts use
-model_registry = PydanticAIModelRegistry()
-model_registry.register_providers({
-    "openai": "openai",
-    "anthropic": "anthropic",
-})
-
-# API loader for cloud deployment — fetches from AgentMark gateway
-loader = ApiLoader.cloud()
-
-# Create the client
-client = create_pydantic_ai_client(
-    model_registry=model_registry,
-    tools=[],
-    loader=loader,
-)
+sdk.init_tracing(disable_batch=True)
 
 adapter = PydanticAIWebhookHandler(client)
 
