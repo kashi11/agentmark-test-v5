@@ -28,7 +28,7 @@ async def handler(request: dict):
 
     if req_type == "prompt-run":
         return await adapter.run_prompt(data["ast"], {
-            "shouldStream": data.get("options", {}).get("shouldStream", False),
+            "shouldStream": data.get("options", {}).get("shouldStream", True),
             "customProps": data.get("customProps"),
         })
 
