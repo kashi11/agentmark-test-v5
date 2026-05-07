@@ -1,0 +1,30 @@
+{
+  "name": "agentmark-fly-test",
+  "version": "1.0.0",
+  "description": "A simple Node.js app using the Agentmark SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "npx tsx index.ts",
+    "agentmark": "agentmark"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@agentmark-ai/cli": "^0.12.2",
+    "@types/node": "^25.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@agentmark-ai/ai-sdk-v5-adapter": "^1.4.2",
+    "@agentmark-ai/loader-api": "^0.1.0",
+    "@agentmark-ai/prompt-core": "^0.4.1",
+    "@agentmark-ai/sdk": "^1.1.1",
+    "@ai-sdk/openai": "^2.0.106",
+    "ai": "^5.0.185",
+    "dotenv": "^17.4.2"
+  }
+}
