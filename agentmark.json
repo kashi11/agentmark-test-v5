@@ -4,12 +4,9 @@
   "mdxVersion": "1.0",
   "agentmarkPath": ".",
   "builtInModels": [
+    "openai/dall-e-3",
     "openai/gpt-4o",
-    "openai/tts-1-hd",
-    "openai/dall-e-2",
-    "openai/dall-e-3"
+    "openai/tts-1-hd"
   ],
-  "evals": [
-    "llm_classification_judge"
-  ]
+  "handler": "handler.ts"
 }

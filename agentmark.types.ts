@@ -5,30 +5,6 @@ interface AnimalDrawingIn { [key: string]: any }
 
 type AnimalDrawingOut = string
 
-interface ClassificationJudgeIn {
-  /**
-   * The model's classification output
-   */
-  model_output: string;
-  /**
-   * The expected/correct classification
-   */
-  expected_classification: string;
-}
-
-
-interface ClassificationJudgeOut {
-  /**
-   * Whether the classification is correct
-   */
-  correct: boolean;
-  /**
-   * Brief explanation for the judgment
-   */
-  reason: string;
-}
-
-
 interface CustomerSupportAgentIn {
   /**
    * The customer's question
@@ -38,20 +14,6 @@ interface CustomerSupportAgentIn {
 
 
 type CustomerSupportAgentOut = string
-
-interface ImageClassifierIn {
-  /**
-   * URL of the image to classify
-   */
-  image_url: string;
-  /**
-   * Comma-separated list of possible categories
-   */
-  categories: string;
-}
-
-
-type ImageClassifierOut = string
 
 interface PartyPlannerIn {
   /**
@@ -79,35 +41,11 @@ type AnimalDrawing = {
   output: AnimalDrawingOut;
 };
 
-type ClassificationJudge = {
-  kind: 'object';
-  input:  ClassificationJudgeIn;
-  output: ClassificationJudgeOut;
-};
-
-interface SearchKnowledgebaseArgs {
-  /**
-   * The search query to find relevant information
-   */
-  query: string;
-}
-
-
-export interface Tools {
-  search_knowledgebase: { args: SearchKnowledgebaseArgs };
-}
-
 type CustomerSupportAgent = {
   kind: 'text';
   input:  CustomerSupportAgentIn;
   output: CustomerSupportAgentOut;
-  tools?: Array<keyof Tools>;
-};
-
-type ImageClassifier = {
-  kind: 'text';
-  input:  ImageClassifierIn;
-  output: ImageClassifierOut;
+  tools?: string[];
 };
 
 type PartyPlanner = {
@@ -126,15 +64,9 @@ export default interface AgentmarkTypes {
   "animal-drawing.prompt.mdx": AnimalDrawing,
   "animal-drawing.prompt": AnimalDrawing,
   "animal-drawing": AnimalDrawing,
-  "classification-judge.prompt.mdx": ClassificationJudge,
-  "classification-judge.prompt": ClassificationJudge,
-  "classification-judge": ClassificationJudge,
   "customer-support-agent.prompt.mdx": CustomerSupportAgent,
   "customer-support-agent.prompt": CustomerSupportAgent,
   "customer-support-agent": CustomerSupportAgent,
-  "image-classifier.prompt.mdx": ImageClassifier,
-  "image-classifier.prompt": ImageClassifier,
-  "image-classifier": ImageClassifier,
   "party-planner.prompt.mdx": PartyPlanner,
   "party-planner.prompt": PartyPlanner,
   "party-planner": PartyPlanner,

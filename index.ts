@@ -1,6 +1,15 @@
 import "dotenv/config";
 import { generateText } from "ai";
+import { AgentMarkSDK } from "@agentmark-ai/sdk";
 import { client } from "./agentmark.client";
+
+// Initialize tracing - traces will be sent to AgentMark Cloud
+// To disable tracing, comment out sdk.initTracing() below
+const sdk = new AgentMarkSDK({
+  apiKey: process.env.AGENTMARK_API_KEY ?? "",
+  appId: process.env.AGENTMARK_APP_ID ?? "",
+});
+sdk.initTracing({ disableBatch: true });
 
 const telemetry = {
   isEnabled: true,
@@ -13,7 +22,7 @@ const telemetry = {
 };
 
 const runCustomerSupport = async (customer_message: string) => {
-  const prompt = await client.loadTextPrompt("customer-support-agent.prompt.mdx");
+  const prompt = await client.loadTextPrompt("customer-support-agent");
   const vercelInput = await prompt.format({
     props: {
       customer_question: customer_message,
