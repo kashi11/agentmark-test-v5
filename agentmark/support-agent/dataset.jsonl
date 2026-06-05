@@ -1,0 +1,4 @@
+{"input": {"question": "How do I reset my password?", "product": "AgentMark"}, "expected_output": "Directs the user to the password reset flow."}
+{"input": {"question": "Do you support Anthropic models?", "product": "AgentMark"}, "expected_output": "Confirms Anthropic models are supported."}
+{"input": {"question": "Can I export my traces as CSV?", "product": "AgentMark"}, "expected_output": "Explains trace export options or escalates if unknown."}
+{"input": {"question": "What is the meaning of life?", "product": "AgentMark"}, "expected_output": "Politely declines as out of scope and redirects to support topics."}

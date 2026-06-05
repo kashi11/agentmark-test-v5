@@ -1,0 +1,31 @@
+---
+name: support-agent
+text_config:
+  model_name: claude-haiku-4-5
+  temperature: 0.3
+  max_tokens: 512
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: The customer's support question.
+    product:
+      type: string
+      description: The product the customer is asking about.
+  required: [question, product]
+test_settings:
+  dataset: ./dataset.jsonl
+  evals: [concise]
+  props:
+    question: How do I reset my password?
+    product: AgentMark
+---
+
+<System>
+You are a customer support agent for {props.product}. Answer the customer's
+question directly and concisely. If you don't know the answer, say so and
+suggest contacting support — never invent details. Keep replies under 4 sentences.
+</System>
+
+<User>{props.question}</User>
