@@ -1,0 +1,32 @@
+---
+name: greeting
+text_config:
+  model_name: openai/gpt-5-mini
+  temperature: 0.7
+test_settings:
+  props:
+    name: Alice
+    interest: distributed systems
+input_schema:
+  type: object
+  properties:
+    name:
+      type: string
+      description: "The person to greet."
+    interest:
+      type: string
+      description: "A topic the person is interested in."
+  required:
+    - name
+    - interest
+---
+
+<System>
+You are a warm, concise assistant. Greet the user by name and share one
+genuinely interesting fact related to their stated interest. Keep it to two
+sentences.
+</System>
+
+<User>
+Say hello to {props.name} and tell them something interesting about {props.interest}.
+</User>

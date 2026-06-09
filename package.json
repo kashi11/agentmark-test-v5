@@ -1,0 +1,26 @@
+{
+  "name": "agentmark-example-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Example AgentMark app: a text prompt run through the Vercel AI SDK adapter, with a dev/deploy handler and tracing.",
+  "scripts": {
+    "dev": "agentmark dev",
+    "run-prompt": "agentmark run-prompt agentmark/greeting.prompt.mdx",
+    "agent": "node --env-file=.env --import tsx src/agent.ts"
+  },
+  "dependencies": {
+    "@agentmark-ai/ai-sdk-v5-adapter": "^1.6.5",
+    "@agentmark-ai/loader-api": "^0.1.2",
+    "@agentmark-ai/sdk": "^1.2.5",
+    "@ai-sdk/openai": "^2",
+    "ai": "^5",
+    "dotenv": "^16"
+  },
+  "devDependencies": {
+    "@agentmark-ai/cli": "^0.16.4",
+    "@types/node": "^22",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}
