@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@agentmark-ai/ai-sdk-v5-adapter": "^1.6.5",
-    "@agentmark-ai/cli": "^0.16.4",
     "@agentmark-ai/loader-api": "^0.1.2",
     "@agentmark-ai/sdk": "^1.2.5",
     "@ai-sdk/openai": "^2",
@@ -20,6 +19,7 @@
     "dotenv": "^16"
   },
   "devDependencies": {
+    "@agentmark-ai/cli": "^0.16.4",
     "@types/node": "^22",
     "tsx": "^4",
     "typescript": "^5"

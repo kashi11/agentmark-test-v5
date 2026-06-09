@@ -1,15 +1,88 @@
 // AgentMark Cloud deployment entry point. The deployment pipeline bundles this
-// file and wraps it in a managed HTTP server. Each Dashboard run (playground or
-// experiment) arrives as one { type, data } event; handleWebhookRequest dispatches.
-import {
-  handleWebhookRequest,
-  type WebhookRequest,
-} from "@agentmark-ai/cli/runner-server";
+// file (esbuild) and wraps it in a managed HTTP server. Each Dashboard run
+// (playground or experiment) arrives as one { type, data } event.
+//
+// We inline the webhook dispatch instead of importing `handleWebhookRequest`
+// from `@agentmark-ai/cli/runner-server`. That CLI subpath is runtime code, but
+// the `@agentmark-ai/cli` package also pulls a dev-tooling dependency tree
+// (next, @mui/*, better-sqlite3) that breaks the Cloud production install. The
+// dispatch itself is tiny and stable, so the deployed bundle depends only on the
+// lightweight adapter. (`dev-entry.ts` still uses the CLI for local `agentmark dev`.)
 import { VercelAdapterWebhookHandler } from "@agentmark-ai/ai-sdk-v5-adapter/runner";
 import { client } from "./agentmark.client";
 
+export type WebhookRequest = { type?: string; data?: any };
+
 const webhookHandler = new VercelAdapterWebhookHandler(client);
 
-export default function handler(event: WebhookRequest) {
-  return handleWebhookRequest(event, webhookHandler);
+export default async function handler(request: WebhookRequest) {
+  const { type, data } = request ?? {};
+
+  if (type !== "prompt-run" && type !== "dataset-run") {
+    return {
+      type: "error",
+      error: "Unknown event type",
+      details: `Expected event.type to be 'prompt-run' or 'dataset-run', got: ${type ?? "undefined"}`,
+      status: 400,
+    };
+  }
+  if (!data?.ast || typeof data.ast !== "object") {
+    return {
+      type: "error",
+      error: "Missing AST object",
+      details: "The request must include the prompt AST in data.ast",
+      status: 400,
+    };
+  }
+
+  if (type === "prompt-run") {
+    const response: any = await webhookHandler.runPrompt(data.ast, {
+      shouldStream: data.options?.shouldStream,
+      customProps: data.customProps,
+    });
+    if (response?.type === "stream") {
+      return {
+        type: "stream",
+        stream: response.stream,
+        headers: response.streamHeader || { "AgentMark-Streaming": "true" },
+        traceId: response.traceId,
+      };
+    }
+    return { type: "json", data: response, status: 200 };
+  }
+
+  // dataset-run — always streams.
+  try {
+    const response: any = await webhookHandler.runExperiment(
+      data.ast,
+      data.experimentId ?? "local-experiment",
+      {
+        datasetPath: data.datasetPath,
+        sampling: data.sampling,
+        concurrency: data.concurrency,
+        experimentKey: data.experimentKey,
+        sourceTreeHash: data.sourceTreeHash,
+      },
+    );
+    if (response?.stream) {
+      return {
+        type: "stream",
+        stream: response.stream,
+        headers: response.streamHeaders || { "AgentMark-Streaming": "true" },
+      };
+    }
+    return {
+      type: "error",
+      error: "Expected stream from dataset-run",
+      details: "Dataset execution should return a streaming response",
+      status: 500,
+    };
+  } catch (e: any) {
+    return {
+      type: "error",
+      error: e?.message || String(e),
+      details: "An error occurred while running the experiment.",
+      status: 500,
+    };
+  }
 }
