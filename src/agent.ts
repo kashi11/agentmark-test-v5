@@ -5,25 +5,11 @@
 //   node --env-file=.env --import tsx src/agent.ts
 // or via the npm script: `npm run agent`.
 import "dotenv/config";
-import { AgentMarkSDK } from "@agentmark-ai/sdk";
+import { tracing } from "./tracing"; // wires AgentMark tracing at import time
 import { generateText } from "ai";
 import { client } from "../agentmark.client";
 
 async function main() {
-  // --- Tracing setup -------------------------------------------------------
-  // registerGlobally: true is REQUIRED for the model-call (generation) span:
-  // the AI SDK emits it through the global OpenTelemetry tracer. disableBatch
-  // makes spans export immediately, which is what you want in a short-lived
-  // script like this one.
-  const sdk = new AgentMarkSDK({
-    apiKey: process.env.AGENTMARK_API_KEY!,
-    appId: process.env.AGENTMARK_APP_ID!,
-  });
-  const tracer = sdk.initTracing({
-    registerGlobally: true,
-    disableBatch: true,
-  });
-
   // --- Load + format the prompt -------------------------------------------
   const prompt = await client.loadTextPrompt("greeting.prompt.mdx");
   const input = await prompt.format({
@@ -49,8 +35,8 @@ async function main() {
   );
 
   // --- Flush + shut down (short-lived script only) -------------------------
-  await tracer.forceFlush();
-  await tracer.shutdown();
+  await tracing.forceFlush();
+  await tracing.shutdown();
 }
 
 main().catch((err) => {

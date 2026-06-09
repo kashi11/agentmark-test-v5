@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "agentmark dev",
     "run-prompt": "agentmark run-prompt agentmark/greeting.prompt.mdx",
-    "agent": "node --env-file=.env --import tsx src/agent.ts"
+    "agent": "node --env-file=.env --import tsx src/agent.ts",
+    "trace": "node --env-file=.env --import tsx src/trace.ts"
   },
   "dependencies": {
     "@agentmark-ai/ai-sdk-v5-adapter": "^1.6.5",
