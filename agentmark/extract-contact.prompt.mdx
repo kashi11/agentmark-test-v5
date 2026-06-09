@@ -1,0 +1,37 @@
+---
+name: extract-contact
+object_config:
+  model_name: openai/gpt-5-mini
+  schema:
+    type: object
+    properties:
+      name:
+        type: string
+        description: "Full name of the contact."
+      email:
+        type: string
+        description: "Email address, if present."
+      company:
+        type: string
+        description: "Company or organization, if mentioned."
+    required:
+      - name
+test_settings:
+  props:
+    text: "Reach out to Dr. Maria Chen at maria.chen@helix-bio.com — she leads research at Helix Bio."
+input_schema:
+  type: object
+  properties:
+    text:
+      type: string
+      description: "Free text that mentions a person to extract."
+  required:
+    - text
+---
+
+<System>
+Extract the contact's structured details from the text. Only include fields you
+can actually find; omit optional fields that aren't present.
+</System>
+
+<User>{props.text}</User>

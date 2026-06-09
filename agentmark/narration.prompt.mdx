@@ -1,0 +1,23 @@
+---
+name: narration
+speech_config:
+  model_name: tts-1-hd
+  voice: "nova"
+  speed: 1.0
+  output_format: "mp3"
+test_settings:
+  props:
+    script: "Welcome aboard. Sit back, relax, and enjoy the journey through the clouds."
+input_schema:
+  type: object
+  properties:
+    script:
+      type: string
+      description: "The text to narrate."
+  required:
+    - script
+---
+
+<SpeechPrompt>
+{props.script}
+</SpeechPrompt>

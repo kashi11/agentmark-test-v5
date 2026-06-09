@@ -13,9 +13,13 @@ A minimal, working AgentMark app built on the **Vercel AI SDK adapter** (`@agent
 
 | File                          | Purpose                                                              |
 | ----------------------------- | ------------------------------------------------------------------- |
-| `agentmark/greeting.prompt.mdx` | The text prompt (model, messages, input schema, `test_settings`). |
+| `agentmark/greeting.prompt.mdx` | **Text** prompt (model, messages, input schema, `test_settings`).  |
+| `agentmark/extract-contact.prompt.mdx` | **Object** prompt — structured JSON via `object_config.schema`. |
+| `agentmark/postcard.prompt.mdx` | **Image** prompt (`gpt-image-1`, `<ImagePrompt>`).                 |
+| `agentmark/narration.prompt.mdx` | **Speech** prompt (`tts-1-hd`, `<SpeechPrompt>`).                 |
+| `agentmark/weather-agent.prompt.mdx` | **Text + tools** prompt — calls the registered `get_weather` tool. |
 | `agentmark/greeting.jsonl`    | Dataset rows (`name` + `interest`) for experiments.                  |
-| `agentmark.client.ts`         | Loader (local vs. Cloud) + model registry + adapter + **eval functions**. |
+| `agentmark.client.ts`         | Loader + model registry (text/object/image/speech) + tools + eval functions. |
 | `agentmark.json`              | Project config incl. `scores` (schemas) and `evals` (registered names). |
 | `dev-entry.ts`                | Webhook server entry point used by `agentmark dev`.                  |
 | `handler.ts`                  | Deployment entry point. Dispatches `prompt-run` / `dataset-run` / `get-evals`. |
@@ -32,12 +36,35 @@ cp .env.example .env   # then fill in OPENAI_API_KEY (+ AgentMark creds for trac
 
 ## Run it locally
 
-Start the dev stack (serves prompts + runs them through the client), then run the prompt:
+Start the dev stack (serves prompts + runs them through the client), then run any prompt:
 
 ```bash
 npx agentmark dev          # leave running in one terminal
 npx agentmark run-prompt agentmark/greeting.prompt.mdx
 ```
+
+## Generation types
+
+All four AgentMark generation types plus a tool-using agent, each one a `.prompt.mdx`:
+
+```bash
+npx agentmark run-prompt agentmark/greeting.prompt.mdx        # text
+npx agentmark run-prompt agentmark/extract-contact.prompt.mdx # object (JSON schema)
+npx agentmark run-prompt agentmark/postcard.prompt.mdx        # image  -> .agentmark-outputs/*.png
+npx agentmark run-prompt agentmark/narration.prompt.mdx       # speech -> .agentmark-outputs/*.mp3
+npx agentmark run-prompt agentmark/weather-agent.prompt.mdx   # text + get_weather tool
+```
+
+Two wiring notes in `agentmark.client.ts`:
+
+- **Image/speech models** need the dedicated factories — `registerProviders({ openai })`
+  only auto-resolves text/object models (`openai/<model>`). Image and speech are
+  registered by bare name via `openai.image()` / `openai.speech()`, so the frontmatter
+  uses `gpt-image-1` / `tts-1-hd` (no `openai/` prefix). (`gpt-image-1` is used rather
+  than `dall-e-3`, which the current OpenAI API rejects with an `Unknown parameter:
+  'response_format'` error.)
+- **Tools** referenced in a prompt's `text_config.tools` are registered as a plain
+  `{ name: tool }` object on the client. AI SDK v5 tools use `inputSchema` (Zod).
 
 ## Tracing
 

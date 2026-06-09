@@ -1,0 +1,26 @@
+---
+name: weather-agent
+text_config:
+  model_name: openai/gpt-5-mini
+  max_calls: 3
+  tools:
+    - get_weather
+test_settings:
+  props:
+    question: "Should I pack an umbrella for Lisbon today?"
+input_schema:
+  type: object
+  properties:
+    question:
+      type: string
+      description: "The user's weather-related question."
+  required:
+    - question
+---
+
+<System>
+You are a travel assistant. Use the get_weather tool to look up current
+conditions for the relevant city before answering. Be concise and practical.
+</System>
+
+<User>{props.question}</User>
