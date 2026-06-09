@@ -7,15 +7,18 @@ A minimal, working AgentMark app built on the **Vercel AI SDK adapter** (`@agent
 - a **dev handler** (`dev-entry.ts`) for `agentmark dev`
 - a **deploy handler** (`handler.ts`) for AgentMark Cloud
 - a runnable **tracing** example (`src/agent.ts`) that emits an AgentMark trace
+- a **dataset** (`agentmark/greeting.jsonl`) + **evals** scored during experiments
 
 ## Files
 
 | File                          | Purpose                                                              |
 | ----------------------------- | ------------------------------------------------------------------- |
-| `agentmark/greeting.prompt.mdx` | The text prompt (model, system/user messages, input schema).      |
-| `agentmark.client.ts`         | Wires the loader (local dev vs. Cloud), model registry, and adapter. |
+| `agentmark/greeting.prompt.mdx` | The text prompt (model, messages, input schema, `test_settings`). |
+| `agentmark/greeting.jsonl`    | Dataset rows (`name` + `interest`) for experiments.                  |
+| `agentmark.client.ts`         | Loader (local vs. Cloud) + model registry + adapter + **eval functions**. |
+| `agentmark.json`              | Project config incl. `scores` (schemas) and `evals` (registered names). |
 | `dev-entry.ts`                | Webhook server entry point used by `agentmark dev`.                  |
-| `handler.ts`                  | Deployment entry point AgentMark Cloud invokes (one `{type,data}` event). |
+| `handler.ts`                  | Deployment entry point. Dispatches `prompt-run` / `dataset-run` / `get-evals`. |
 | `src/tracing.ts`              | Tracing wired at startup — `initTracing({ registerGlobally: true })`. Import before any LLM call. |
 | `src/agent.ts`                | Standalone script: load → format (with telemetry) → `generateText` → trace. |
 | `src/trace.ts`                | Minimal one-call trace producer (no Cloud-synced prompt needed). `npm run trace`. |
@@ -65,6 +68,36 @@ Tracing notes (each fails silently if wrong):
   `prompt.format()`, or it emits no spans.
 - In a short-lived script, `disableBatch: true` plus `forceFlush()` + `shutdown()`
   before exit ensures spans are sent.
+
+## Evaluations
+
+Two boolean evals score each greeting during experiments:
+
+- `mentions_name` — the reply addresses the recipient by name.
+- `two_sentences_max` — the reply stays within the two-sentence instruction.
+
+The wiring spans three files: the functions are registered in `agentmark.client.ts`
+(`evals`), their score schemas are declared in `agentmark.json` (`scores` + `evals`),
+and the prompt opts in via `test_settings.evals`. Run them against the dataset:
+
+```bash
+npx agentmark dev          # leave running
+npx agentmark run-experiment agentmark/greeting.prompt.mdx
+```
+
+Each eval receives `{ input, output, expectedOutput }` — where `input` is the
+**rendered messages array** (not the raw props), so `mentions_name` parses the
+recipient from the user turn.
+
+### `get-evals` (control-plane)
+
+When you set up an experiment in the Dashboard, the **Evaluations** picker is
+populated by a `get-evals` webhook job: the gateway asks your deployed handler
+which evals it has registered. `handler.ts` answers it from the client's eval
+registry, returning `{ type: "evals", result: <JSON names>, traceId: "" }`. So a
+third event type joins `prompt-run` / `dataset-run`. (Forward-compatible: it
+prefers the official `client.getEvalNames()` once your installed packages expose
+it, falling back to the registry on current versions.)
 
 ## Deploy
 

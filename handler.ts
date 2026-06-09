@@ -15,14 +15,37 @@ export type WebhookRequest = { type?: string; data?: any };
 
 const webhookHandler = new VercelAdapterWebhookHandler(client);
 
+// Forward-compatible source of registered eval names for the `get-evals`
+// control-plane job. Newer prompt-core surfaces `client.getEvalNames()`; older
+// builds (what's pinned here) keep them in the private `_evalRegistry`. Prefer
+// the official accessor when present.
+function getEvalNames(): string[] {
+  const c = client as any;
+  if (typeof c.getEvalNames === "function") return c.getEvalNames();
+  return Object.keys(c._evalRegistry ?? {});
+}
+
 export default async function handler(request: WebhookRequest) {
   const { type, data } = request ?? {};
+
+  // Control-plane job: the Dashboard's New Experiment dialog asks which evals
+  // this deployed app can run, to populate its "Evaluations" multi-select.
+  // No prompt AST involved. Matches the shared cross-language wire contract:
+  // { type: "evals", result: <JSON array of sorted names>, traceId: "" }.
+  if (type === "get-evals") {
+    const names = [...getEvalNames()].sort();
+    return {
+      type: "json",
+      data: { type: "evals", result: JSON.stringify(names), traceId: "" },
+      status: 200,
+    };
+  }
 
   if (type !== "prompt-run" && type !== "dataset-run") {
     return {
       type: "error",
       error: "Unknown event type",
-      details: `Expected event.type to be 'prompt-run' or 'dataset-run', got: ${type ?? "undefined"}`,
+      details: `Expected event.type to be 'prompt-run', 'dataset-run', or 'get-evals', got: ${type ?? "undefined"}`,
       status: 400,
     };
   }
