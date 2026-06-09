@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "agentmark": {
+      "source": "agentmark-ai/skills",
+      "sourceType": "github",
+      "skillPath": "skills/agentmark/SKILL.md",
+      "computedHash": "90d9ce6e054f31773081bd4f90128c7b6bcebf351755d3acd871712266fe5955"
+    }
+  }
+}
