@@ -1,7 +1,8 @@
-{"input":{"name":"Alice","interest":"distributed systems"},"expected_output":"Hi, Alice","metadata":{"source_trace_id":"5aa456488d132b2856374b030f4a75a8","source_environment":"dev","source_commit_sha":"fdd544e9936ac475daa4dd0f64ac47822d416113","added_by":"af003dab-d693-45f7-b5cb-fe9b6a685a0f","added_at":"2026-06-09T15:45:26.635Z"}}
+{"input":{"name":"Alice","interest":"distributed systems"},"expected_output":"Hi, Alice"}
 {"input":{"name":"Alice","interest":"distributed systems"}}
 {"input":{"name":"Bob","interest":"espresso brewing"}}
 {"input":{"name":"Carol","interest":"deep-sea biology"}}
 {"input":{"name":"Diego","interest":"Renaissance painting"}}
 {"input":{"name":"Mei","interest":"origami mathematics"}}
 {"input":{"name":"Omar","interest":"Formula 1 aerodynamics"}}
+{"input":{"name":"Alice","interest":"distributed systems"},"expected_output":"test"}
