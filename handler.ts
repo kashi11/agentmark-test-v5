@@ -42,11 +42,15 @@ export default async function handler(request: WebhookRequest) {
   // { type: "evals", result: <JSON array of sorted names>, traceId: "" }.
   if (type === "get-evals") {
     const names = [...getEvalNames()].sort();
-    return {
-      type: "json",
-      data: { type: "evals", result: JSON.stringify(names), traceId: "" },
-      status: 200,
-    };
+    // Return the FLAT control-plane payload — NOT wrapped in the
+    // { type:'json', data, status } envelope that prompt-run/dataset-run use.
+    // The Dashboard's "Evaluations" picker dispatches get-evals straight to the
+    // gateway and reads the machine's response as-is (the Durable Object forwards
+    // the body without unwrapping `.data`). It expects exactly:
+    //   { type: 'evals', result: <JSON string of names>, traceId: string }
+    // A wrapped { type:'json', ... } makes the route see type !== 'evals' and
+    // return an empty list — which is why the evals never appeared.
+    return { type: "evals", result: JSON.stringify(names), traceId: "" };
   }
 
   if (type !== "prompt-run" && type !== "dataset-run") {
