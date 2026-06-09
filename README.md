@@ -60,6 +60,13 @@ adapter, then traces the run:
 npm run agent
 ```
 
+**Deployed handler:** `handler.ts` imports `./src/tracing` as its first line, so
+tracing is initialized at Cloud startup. This is required and easy to miss — the
+canonical handler omits it, and without a registered global tracer the experiment
+runs but every span silently goes to a no-op tracer, so **no traces appear in the
+Dashboard**. (Verified: a span is `isRecording: false` before the import,
+`isRecording: true` after.)
+
 Tracing notes (each fails silently if wrong):
 
 - `initTracing({ registerGlobally: true })` is **required** — the AI SDK emits the

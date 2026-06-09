@@ -8,6 +8,14 @@
 // (next, @mui/*, better-sqlite3) that breaks the Cloud production install. The
 // dispatch itself is tiny and stable, so the deployed bundle depends only on the
 // lightweight adapter. (`dev-entry.ts` still uses the CLI for local `agentmark dev`.)
+//
+// IMPORTANT: this side-effect import wires AgentMark tracing at app startup
+// (sdk.initTracing({ registerGlobally: true })). It MUST run before any model
+// call. Without it, the managed handler has no registered global OTel tracer, so
+// the AI SDK's model spans and experiment spans silently go to a no-op tracer and
+// never reach the gateway — the experiment runs, but no traces appear in the UI.
+// Keep it first so the provider is registered before the client/adapter load.
+import "./src/tracing";
 import { VercelAdapterWebhookHandler } from "@agentmark-ai/ai-sdk-v5-adapter/runner";
 import { client } from "./agentmark.client";
 
