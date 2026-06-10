@@ -1,0 +1,56 @@
+{
+  "ref": "refs/heads/example/agentmark-ai-sdk-tracing",
+  "before": "79ffe6ba944054405f5dca4b51299f0364660fbf",
+  "after": "622adbb451277d5cd68e347ada1c34dca914c832",
+  "repository": {
+    "id": 1001234567,
+    "name": "agentmark-test-v5",
+    "full_name": "kashi11/agentmark-test-v5",
+    "private": true,
+    "default_branch": "main"
+  },
+  "head_commit": {
+    "id": "622adbb451277d5cd68e347ada1c34dca914c832",
+    "message": "added a period (bot, like publish)",
+    "timestamp": "2026-06-10T19:30:00+05:00",
+    "author": {
+      "name": "agentmark-test[bot]",
+      "email": "189999999+agentmark-test[bot]@users.noreply.github.com",
+      "username": "agentmark-test[bot]"
+    },
+    "committer": {
+      "name": "agentmark-test[bot]",
+      "email": "189999999+agentmark-test[bot]@users.noreply.github.com",
+      "username": "agentmark-test[bot]"
+    },
+    "added": [],
+    "modified": [
+      "agentmark/auction-planner.prompt.mdx"
+    ],
+    "removed": []
+  },
+  "commits": [
+    {
+      "id": "622adbb451277d5cd68e347ada1c34dca914c832",
+      "message": "added a period (bot, like publish)",
+      "timestamp": "2026-06-10T19:30:00+05:00",
+      "author": {
+        "name": "agentmark-test[bot]",
+        "email": "189999999+agentmark-test[bot]@users.noreply.github.com",
+        "username": "agentmark-test[bot]"
+      },
+      "added": [],
+      "modified": [
+        "agentmark/auction-planner.prompt.mdx"
+      ],
+      "removed": []
+    }
+  ],
+  "sender": {
+    "login": "agentmark-test[bot]",
+    "type": "Bot"
+  },
+  "installation": {
+    "id": 77266863
+  }
+}

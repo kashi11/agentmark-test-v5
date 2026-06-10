@@ -1,7 +1,7 @@
 ---
 name: auction-planner
 object_config:
-  model_name: anthropic/claude-sonnet-4-20250514
+  model_name: anthropic/claude-sonnet-4-6
   max_calls: 5
   tools: []
   schema:
@@ -9,14 +9,14 @@ object_config:
     properties:
       listing_confident:
         type: boolean
-        description: "true if the listing page was confidently identified"
+        description: true if the listing page was confidently identified
       reasoning:
         type: string
         description: Brief explanation of what was found on the page
       load_more:
         type:
           - object
-          - "null"
+          - 'null'
         description: Load More / Show More button if present. null if none.
         properties:
           selector:
@@ -27,24 +27,24 @@ object_config:
       paging:
         type:
           - object
-          - "null"
+          - 'null'
         description: Page navigation controls if present. null if none.
         properties:
           selector:
             type:
               - string
-              - "null"
+              - 'null'
             description: CSS selector for the Next page button. null if only numbered links.
           container:
             type:
               - string
-              - "null"
+              - 'null'
             description: CSS selector for the element containing page number links.
           page_urls:
             type: array
             items:
               type: string
-            description: "Pagination href URLs found in the HTML; [] if none"
+            description: Pagination href URLs found in the HTML; [] if none
         required:
           - container
           - page_urls
@@ -55,12 +55,12 @@ object_config:
           url_pattern:
             type:
               - string
-              - "null"
-            description: "PATH pattern for auction detail pages using {var} syntax (e.g., /auction/{id})"
+              - 'null'
+            description: PATH pattern for auction detail pages using {var} syntax (e.g., /auction/{id})
           total_count:
             type:
               - integer
-              - "null"
+              - 'null'
             description: Total auction count if visible on page
         required:
           - url_pattern
@@ -87,12 +87,14 @@ test_settings:
     - lot_count
     - pagination_detected
 ---
+
+
 import PaginationInstructions from './components/pagination-instructions.mdx';
 
 <System>
 You are an expert web scraping analyst. You analyze auction house websites
 to identify auction sale events and pagination controls. The page content
-is provided as cleaned HTML....
+is provided as cleaned HTML..
 
 <rules>
 1. Read the HTML to identify auctions (sale events) and their URL pattern.

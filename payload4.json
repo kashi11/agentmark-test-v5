@@ -1,0 +1,56 @@
+{
+  "ref": "refs/heads/example/agentmark-ai-sdk-tracing",
+  "before": "61ab3a7fa8c2b94af83eec23b26274ea4b5a4bc8",
+  "after": "79ffe6ba944054405f5dca4b51299f0364660fbf",
+  "repository": {
+    "id": 1001234567,
+    "name": "agentmark-test-v5",
+    "full_name": "kashi11/agentmark-test-v5",
+    "private": true,
+    "default_branch": "main"
+  },
+  "head_commit": {
+    "id": "79ffe6ba944054405f5dca4b51299f0364660fbf",
+    "message": "test: single dot edit inside System",
+    "timestamp": "2026-06-10T19:30:00+05:00",
+    "author": {
+      "name": "kashi11",
+      "email": "kashif.ali@carbonteq.com",
+      "username": "kashi11"
+    },
+    "committer": {
+      "name": "kashi11",
+      "email": "kashif.ali@carbonteq.com",
+      "username": "kashi11"
+    },
+    "added": [],
+    "modified": [
+      "agentmark/auction-planner.prompt.mdx"
+    ],
+    "removed": []
+  },
+  "commits": [
+    {
+      "id": "79ffe6ba944054405f5dca4b51299f0364660fbf",
+      "message": "test: single dot edit inside System",
+      "timestamp": "2026-06-10T19:30:00+05:00",
+      "author": {
+        "name": "kashi11",
+        "email": "kashif.ali@carbonteq.com",
+        "username": "kashi11"
+      },
+      "added": [],
+      "modified": [
+        "agentmark/auction-planner.prompt.mdx"
+      ],
+      "removed": []
+    }
+  ],
+  "sender": {
+    "login": "kashi11",
+    "type": "User"
+  },
+  "installation": {
+    "id": 77266863
+  }
+}
