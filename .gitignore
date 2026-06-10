@@ -1,10 +1,5 @@
-node_modules/
-.env
-.env.local
-.agentmark-outputs/
-dist/
-*.log
-.DS_Store
-
-# AgentMark local development config
-.agentmark/dev-config.json
+payload*.json
+jwt.txt
+botcommit.json
+prod-*.mdx
+devserver.log
