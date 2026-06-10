@@ -1,5 +1,12 @@
 ---
 name: qa_smoke_test
 text_config:
-  model: ""
+  model_name: openai/gpt-5.5
+  max_tokens: 4096
+  max_calls: 5
 ---
+
+
+<System>You are a smoke test assistant. Reply tersely.</System>
+
+<User>Reply with exactly: smoke test ok</User>
