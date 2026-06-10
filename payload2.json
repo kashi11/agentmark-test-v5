@@ -1,0 +1,58 @@
+{
+  "ref": "refs/heads/example/agentmark-ai-sdk-tracing",
+  "before": "b7b95f4d01849271d95b836c41e71893a2bf3363",
+  "after": "d00223ef40efe28dae3926438ca5f729b0a6fec6",
+  "repository": {
+    "id": 1001234567,
+    "name": "agentmark-test-v5",
+    "full_name": "kashi11/agentmark-test-v5",
+    "private": true,
+    "default_branch": "main"
+  },
+  "head_commit": {
+    "id": "d00223ef40efe28dae3926438ca5f729b0a6fec6",
+    "message": "test: add object_config frontmatter to auction prompt",
+    "timestamp": "2026-06-10T19:30:00+05:00",
+    "author": {
+      "name": "kashi11",
+      "email": "kashif.ali@carbonteq.com",
+      "username": "kashi11"
+    },
+    "committer": {
+      "name": "kashi11",
+      "email": "kashif.ali@carbonteq.com",
+      "username": "kashi11"
+    },
+    "added": [],
+    "modified": [
+      "agentmark/analyze-auctions.prompt.mdx",
+      "agentmark/components/pagination-instructions.mdx"
+    ],
+    "removed": []
+  },
+  "commits": [
+    {
+      "id": "d00223ef40efe28dae3926438ca5f729b0a6fec6",
+      "message": "test: add object_config frontmatter to auction prompt",
+      "timestamp": "2026-06-10T19:30:00+05:00",
+      "author": {
+        "name": "kashi11",
+        "email": "kashif.ali@carbonteq.com",
+        "username": "kashi11"
+      },
+      "added": [],
+      "modified": [
+        "agentmark/analyze-auctions.prompt.mdx",
+        "agentmark/components/pagination-instructions.mdx"
+      ],
+      "removed": []
+    }
+  ],
+  "sender": {
+    "login": "kashi11",
+    "type": "User"
+  },
+  "installation": {
+    "id": 77266863
+  }
+}
