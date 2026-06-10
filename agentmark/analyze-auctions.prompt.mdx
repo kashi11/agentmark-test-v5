@@ -1,3 +1,50 @@
+---
+name: analyze-auctions
+object_config:
+  model_name: openai/gpt-5.5
+  schema:
+    type: object
+    properties:
+      auctions:
+        type: array
+        description: "Auction sale events found on the page."
+        items:
+          type: object
+          properties:
+            title:
+              type: string
+            date:
+              type: string
+            url:
+              type: string
+          required:
+            - title
+            - url
+      pagination:
+        type: object
+        properties:
+          kind:
+            type: string
+            description: "load_more | numbered | infinite_scroll | none"
+          detail:
+            type: string
+        required:
+          - kind
+    required:
+      - auctions
+      - pagination
+input_schema:
+  type: object
+  properties:
+    base_url:
+      type: string
+    page_content:
+      type: string
+  required:
+    - base_url
+    - page_content
+---
+
 import PaginationInstructions from './components/pagination-instructions.mdx';
 
 <System>
