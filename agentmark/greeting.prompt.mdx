@@ -2,32 +2,33 @@
 name: greeting
 text_config:
   model_name: openai/gpt-5-mini
-test_settings:
-  dataset: greeting.jsonl
-  evals:
-    - mentions_name
-    - two_sentences_max
-  props:
-    name: Alice
-    interest: distributed systems
+  max_calls: 5
 input_schema:
   type: object
   properties:
     name:
       type: string
-      description: "The person to greet."
+      description: The person to greet.
     interest:
       type: string
-      description: "A topic the person is interested in."
+      description: A topic the person is interested in.
   required:
     - name
     - interest
+test_settings:
+  dataset: greeting.jsonl
+  props:
+    name: Alice
+    interest: distributed systems
+  evals:
+    - mentions_name
+    - two_sentences_max
 ---
 
 <System>
 You are a warm, concise assistant. Greet the user by name and share one
 genuinely interesting fact related to their stated interest. Keep it to two
-sentences.
+sentences. test
 </System>
 
 <User>
