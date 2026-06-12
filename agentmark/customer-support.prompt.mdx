@@ -2,8 +2,7 @@
 name: customer-support
 text_config:
   model_name: openai/gpt-5.5
-test_settings:
-  dataset: ./customer-support.jsonl
+  max_calls: 5
 input_schema:
   type: object
   properties:
@@ -13,7 +12,10 @@ input_schema:
     message:
       type: string
       description: The customer's support request
-  required: [message]
+  required:
+    - message
+test_settings:
+  dataset: ./customer-support.jsonl
 ---
 
 <System>
@@ -23,7 +25,7 @@ Guidelines:
 - Be empathetic and acknowledge the customer's issue before answering.
 - Give clear, step-by-step help when troubleshooting.
 - If you don't know the answer or the request needs account access, say so and offer to escalate to a human agent.
-- Keep responses concise and easy to follow.
+- Keep responses concise and easy to follow. test
 </System>
 
 <User>
