@@ -1,0 +1,7 @@
+
+
+# AgentMark local development config
+.agentmark/dev-config.json
+
+node_modules/
+.env
