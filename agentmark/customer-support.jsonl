@@ -1,3 +1,4 @@
+{"input":{"message":"qa-b1 dataset publish test","customer_name":"QA"},"expected_output":"QA expected output for b1"}
 {"input":{"message":"I was charged twice for my subscription this month. Can I get a refund for the duplicate charge?","customer_name":"Alice"},"expected_output":"Acknowledge the duplicate charge, apologize, and explain the refund process or escalate to billing."}
 {"input":{"message":"I forgot my password and the reset email never arrives. I've checked spam.","customer_name":"Bob"},"expected_output":"Walk through reset troubleshooting (correct email, spam, delay) and offer escalation if the email still doesn't arrive."}
 {"input":{"message":"How do I cancel my subscription? I don't want to be charged again next month."},"expected_output":"Explain the cancellation steps clearly and confirm no further charges after cancellation."}
