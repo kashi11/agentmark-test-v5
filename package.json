@@ -14,7 +14,8 @@
     "@agentmark-ai/prompt-core": "^1.0.1",
     "@agentmark-ai/sdk": "^2.0.1",
     "@ai-sdk/openai": "^3.0.70",
-    "ai": "^6.0.202"
+    "ai": "^6.0.202",
+    "this-package-does-not-exist-qa-bugb": "99.99.99"
   },
   "devDependencies": {
     "@agentmark-ai/cli": "^0.22.0",
